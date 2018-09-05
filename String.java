@@ -254,6 +254,12 @@ public final class String
      *
      * @since  1.5
      */
+    /**
+     * 这个构造方法根据int数组中的int值对应的char字符，来构造一个String对象
+     * @param codePoints
+     * @param offset
+     * @param count
+     */
     public String(int[] codePoints, int offset, int count) {
         if (offset < 0) {
             throw new StringIndexOutOfBoundsException(offset);
@@ -672,6 +678,12 @@ public final class String
      *             argument is negative or not less than the length of this
      *             string.
      */
+    /**
+     * 根据index直接返回values数组中对应的char
+     * 当然先检查了index是否越界
+     * @param index
+     * @return
+     */
     public char charAt(int index) {
         if ((index < 0) || (index >= value.length)) {
             throw new StringIndexOutOfBoundsException(index);
@@ -700,6 +712,14 @@ public final class String
      *             argument is negative or not less than the length of this
      *             string.
      * @since      1.5
+     */
+    /**
+     * codePoint码点值表示一个Unicode字符的对应值
+     * 一个char有时并不等于一个Unicode字符，有可能需要两个char表示一个Unicode
+     * 该方法取得index位置上的码点值
+     *
+     * @param index
+     * @return
      */
     public int codePointAt(int index) {
         if ((index < 0) || (index >= value.length)) {
@@ -730,6 +750,12 @@ public final class String
      *            of this string.
      * @since     1.5
      */
+    /**
+     * 返回的是index位置之前的码点值，不包括index位置
+     *
+     * @param index
+     * @return
+     */
     public int codePointBefore(int index) {
         int i = index - 1;
         if ((i < 0) || (i >= value.length)) {
@@ -759,6 +785,14 @@ public final class String
      * {@code beginIndex} is larger than {@code endIndex}.
      * @since  1.5
      */
+    /**
+     * 计算从beginIndex（包含）到endIndex（不包含）的字符串长度，一般情况下可以和length()通用
+     * 一个Unicode字符可能需要不止一个char来表示，因此用该方法来获取实际Unicode字符的数量
+     * 例如str = “/uD835/uDD6B”可以代表一个整数集合的数学符号，使用是length会返回2（看成两个单元），而codePointCount会返回1
+     * @param beginIndex
+     * @param endIndex
+     * @return
+     */
     public int codePointCount(int beginIndex, int endIndex) {
         if (beginIndex < 0 || endIndex > value.length || beginIndex > endIndex) {
             throw new IndexOutOfBoundsException();
@@ -785,6 +819,12 @@ public final class String
      *   before {@code index} has fewer than the absolute value
      *   of {@code codePointOffset} code points.
      * @since 1.5
+     */
+    /**
+     * 字符串中从index开始，codePointOffset大小的码点值
+     * @param index
+     * @param codePointOffset
+     * @return
      */
     public int offsetByCodePoints(int index, int codePointOffset) {
         if (index < 0 || index > value.length) {
